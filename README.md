@@ -1,2 +1,2 @@
 # yourperfectpainting
-get your perfect painting in this personality quiz, led by picasso the praying mantis &lt;3
+get your perfect painting in this personality quiz! all images used are public domain.
