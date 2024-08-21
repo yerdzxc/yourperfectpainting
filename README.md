@@ -3,6 +3,7 @@ Welcome to the repo for Your Perfect Painting <3 This project takes users throug
 
 ## Try it now!
 [https://korevillo.github.com/yourperfectpainting](https://korevillo.github.com/yourperfectpainting)
+
 Please note that this site is optimized for mobile screens, meaning it might look weird on desktop!
 
 ## Attributions
