@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Perfect Painting</title>
+    <link rel="stylesheet" href="results.css">
+
+    <!-- Importing serif font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=VT323&display=swap');
+    </style>
+</head>
+<body>
+    <div id="result-container" class="painting-info">
+        <!-- Painting info will be injected here -->
+    </div>
+
+    <div class="button-container">
+        <button onclick="window.location.href='index.html';">Take the Quiz Again!</button>
+    </div>
+
+    <button id="attr-btn" onclick="window.location.href='attribution.html';">Attribution</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resultContainer = document.getElementById('result-container');
+
+            // Hard-coded painting data lol
+            const mbtiPaintingData = {
+                "ENFJ": {
+                    painting: {
+                        title: "The School of Athens",
+                        artist: "Raphael",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg",
+                        reason: "Elegant, influential, scenic, refined"
+                    },
+                    compatible: [
+                        {
+                            title: "The Starry Night",
+                            artist: "Vincent van Gogh",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/66/VanGogh-starry_night_ballance1.jpg"
+                        },
+                        {
+                            title: "The Music Lesson",
+                            artist: "Johannes Vermeer",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Johannes_Vermeer_-_Lady_at_the_Virginal_with_a_Gentleman%2C_%27The_Music_Lesson%27_-_Google_Art_Project.jpg"
+                        }
+                    ]
+                },
+                "ENTJ": {
+                    painting: {
+                        title: "The Death of Socrates",
+                        artist: "Jacques-Louis David",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/8c/David_-_The_Death_of_Socrates.jpg",
+                        reason: "Strategic, determined, authoritative, analytical"
+                    },
+                    compatible: [
+                        {
+                            title: "The Tower of Babel",
+                            artist: "Pieter Bruegel the Elder",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_%28Rotterdam%29_-_Google_Art_Project_-_edited.jpg"
+                        },
+                        {
+                            title: "The Last Judgement",
+                            artist: "Michelangelo",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/1/18/Last_Judgement_%28Michelangelo%29.jpg"
+                        }
+                    ]
+                },
+                "INFJ": {
+                    painting: {
+                        title: "The Starry Night",
+                        artist: "Vincent van Gogh",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/66/VanGogh-starry_night_ballance1.jpg",
+                        reason: "Visionary, introspective, empathetic, contemplative"
+                    },
+                    compatible: [
+                        {
+                            title: "The School of Athens",
+                            artist: "Raphael",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg",
+                        },
+                        {
+                            title: "Water Lilies",
+                            artist: "Claude Monet",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_Monet_-_Nymph%C3%A9as_W1852_-_Mus%C3%A9e_Marmottan-Monet.jpg",
+                        }
+                    ]
+                },
+                "INTJ": {
+                    painting: {
+                        title: "The Tower of Babel",
+                        artist: "Pieter Bruegel the Elder",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_%28Rotterdam%29_-_Google_Art_Project_-_edited.jpg",
+                        reason: "Visionary, strategic, complex, innovative"
+                    },
+                    compatible: [
+                        {
+                            title: "The Death of Socrates",
+                            artist: "Jacques-Louis David",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/8c/David_-_The_Death_of_Socrates.jpg",
+                        },
+                        {
+                            title: "Girl with a Pearl Earring",
+                            artist: "Johannes Vermeer",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0f/1665_Girl_with_a_Pearl_Earring.jpg",
+                        }
+                    ]
+                },
+                "ENFP": {
+                    painting: {
+                        title: "The Garden of Earthly Delights",
+                        artist: "Hieronymus Bosch",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/The_Garden_of_earthly_delights.jpg",
+                        reason: "Imaginative, dynamic, whimsical, expressive"
+                    },
+                    compatible: [
+                        {
+                            title: "Water Lilies",
+                            artist: "Claude Monet",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_Monet_-_Nymph%C3%A9as_W1852_-_Mus%C3%A9e_Marmottan-Monet.jpg",
+                        },
+                        {
+                            title: "The Music Lesson",
+                            artist: "Johannes Vermeer",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Johannes_Vermeer_-_Lady_at_the_Virginal_with_a_Gentleman%2C_%27The_Music_Lesson%27_-_Google_Art_Project.jpg",
+                        }
+                    ]
+                },
+                "ENTP": {
+                    painting: {
+                        title: "The Scream",
+                        artist: "Edvard Munch",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+                        reason: "Innovative, expressive, unconventional, dynamic"
+                    },
+                    compatible: [
+                        {
+                            title: "Girl with a Pearl Earring",
+                            artist: "Johannes Vermeer",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0f/1665_Girl_with_a_Pearl_Earring.jpg",
+                        },
+                        {
+                            title: "The Garden of Earthly Delights",
+                            artist: "Hieronymus Bosch",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/The_Garden_of_earthly_delights.jpg",
+                        }
+                    ]
+                },
+                "INFP": {
+                    painting: {
+                        title: "Water Lilies",
+                        artist: "Claude Monet",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_Monet_-_Nymph%C3%A9as_W1852_-_Mus%C3%A9e_Marmottan-Monet.jpg",
+                        reason: "Idealistic, reflective, serene, sensitive"
+                    },
+                    compatible: [
+                        {
+                            title: "The Starry Night",
+                            artist: "Vincent van Gogh",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/66/VanGogh-starry_night_ballance1.jpg",
+                        },
+                        {
+                            title: "The Garden of Earthly Delights",
+                            artist: "Hieronymus Bosch",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/The_Garden_of_earthly_delights.jpg",
+                        }
+                    ]
+                },
+                "INTP": {
+                    painting: {
+                        title: "Girl with a Pearl Earring",
+                        artist: "Johannes Vermeer",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0f/1665_Girl_with_a_Pearl_Earring.jpg",
+                        reason: "Analytical, curious, subtle, intellectual"
+                    },
+                    compatible: [
+                        {
+                            title: "The Tower of Babel",
+                            artist: "Pieter Bruegel the Elder",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_%28Rotterdam%29_-_Google_Art_Project_-_edited.jpg",
+                        },
+                        {
+                            title: "The Scream",
+                            artist: "Edvard Munch",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+                        }
+                    ]
+                },
+                "ESFJ": {
+                    painting: {
+                        title: "The Music Lesson",
+                        artist: "Johannes Vermeer",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Johannes_Vermeer_-_Lady_at_the_Virginal_with_a_Gentleman%2C_%27The_Music_Lesson%27_-_Google_Art_Project.jpg",
+                        reason: "Supportive, sociable, nurturing, harmonious"
+                    },
+                    compatible: [
+                        {
+                            title: "The Birth of Venus",
+                            artist: "Sandro Botticelli",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/1280px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg",
+                        },
+                        {
+                            title: "The School of Athens",
+                            artist: "Raphael",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg",
+                        }
+                    ]
+                },
+                "ESTJ": {
+                    painting: {
+                        title: "The Last Judgement",
+                        artist: "Michelangelo",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/1/18/Last_Judgement_%28Michelangelo%29.jpg",
+                        reason: "Authoritative, disciplined, structured, decisive"
+                    },
+                    compatible: [
+                        {
+                            title: "The Last Supper",
+                            artist: "Leonardo da Vinci",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg",
+                        },
+                        {
+                            title: "The Music Lesson",
+                            artist: "Johannes Vermeer",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Johannes_Vermeer_-_Lady_at_the_Virginal_with_a_Gentleman%2C_%27The_Music_Lesson%27_-_Google_Art_Project.jpg",
+                        }
+                    ]
+                },
+                "ISFJ": {
+                    painting: {
+                        title: "The Birth of Venus",
+                        artist: "Sandro Botticelli",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/1280px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg",
+                        reason: "Graceful, nurturing, detailed, traditional"
+                    },
+                    compatible: [
+                        {
+                            title: "The Music Lesson",
+                            artist: "Johannes Vermeer",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Johannes_Vermeer_-_Lady_at_the_Virginal_with_a_Gentleman%2C_%27The_Music_Lesson%27_-_Google_Art_Project.jpg",
+                        },
+                        {
+                            title: "The Last Supper",
+                            artist: "Leonardo da Vinci",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg",
+                        }
+                    ]
+                },
+                "ISTJ": {
+                    painting: {
+                        title: "The Last Supper",
+                        artist: "Leonardo da Vinci",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg",
+                        reason: "Strategic, independent, analytical, visionary"
+                    },
+                    compatible: [
+                        {
+                            title: "The Birth of Venus",
+                            artist: "Sandro Botticelli",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/1280px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg",
+                        },
+                        {
+                            title: "The Last Judgement",
+                            artist: "Michelangelo",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/1/18/Last_Judgement_%28Michelangelo%29.jpg",
+                        }
+                    ]
+                },
+                "ESFP": {
+                    painting: {
+                        title: "A Sunday Afternoon on the Island of La Grande Jatte",
+                        artist: "Georges Seurat",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg",
+                        reason: "Lively, spontaneous, sociable, playful"
+                    },
+                    compatible: [
+                        {
+                            title: "Lady with an Ermine",
+                            artist: "Leonardo da Vinci",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Lady_with_an_Ermine_-_Leonardo_da_Vinci_%28adjusted_levels%29.jpg",
+                        },
+                        {
+                            title: "The Garden of Earthly Delights",
+                            artist: "Hieronymus Bosch",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/The_Garden_of_earthly_delights.jpg",
+                        }
+                    ]
+                },
+                "ESTP": {
+                    painting: {
+                        title: "The Luncheon on the Grass",
+                        artist: "Édouard Manet",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/90/Edouard_Manet_-_Luncheon_on_the_Grass_-_Google_Art_Project.jpg",
+                        reason: "Bold, unconventional, lively, engaging"
+                    },
+                    compatible: [
+                        {
+                            title: "The Great Wave off Kanagawa",
+                            artist: "Katsushika Hokusai",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Tsunami_by_hokusai_19th_century.jpg",
+                        },
+                        {
+                            title: "A Sunday Afternoon on the Island of La Grande Jatte",
+                            artist: "Georges Seurat",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg",
+                        }
+                    ]
+                },
+                "ISFP": {
+                    painting: {
+                        title: "Lady with an Ermine",
+                        artist: "Leonardo da Vinci",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Lady_with_an_Ermine_-_Leonardo_da_Vinci_%28adjusted_levels%29.jpg",
+                        reason: "Elegant, expressive, subtle, refined"
+                    },
+                    compatible: [
+                        {
+                            title: "Water Lilies",
+                            artist: "Claude Monet",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_Monet_-_Nymph%C3%A9as_W1852_-_Mus%C3%A9e_Marmottan-Monet.jpg",
+                        },
+                        {
+                            title: "A Sunday Afternoon on the Island of La Grande Jatte",
+                            artist: "Georges Seurat",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg",
+                        }
+                    ]
+                },
+                "ISTP": {
+                    painting: {
+                        title: "The Great Wave off Kanagawa",
+                        artist: "Katsushika Hokusai",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Tsunami_by_hokusai_19th_century.jpg",
+                        reason: "Adventurous, practical, resourceful, observant"
+                    },
+                    compatible: [
+                        {
+                            title: "The Luncheon on the Grass",
+                            artist: "Édouard Manet",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/90/Edouard_Manet_-_Luncheon_on_the_Grass_-_Google_Art_Project.jpg",
+                        },
+                        {
+                            title: "Lady with an Ermine",
+                            artist: "Leonardo da Vinci",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Lady_with_an_Ermine_-_Leonardo_da_Vinci_%28adjusted_levels%29.jpg",
+                        }
+                    ]
+                }
+            };
+
+            // Get the MBTI type from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const mbtiType = urlParams.get('type');
+
+            if (mbtiType && mbtiPaintingData[mbtiType]) {
+                const { painting, compatible } = mbtiPaintingData[mbtiType];
+
+                // Display painting info
+                const displayPaintingInfo = () => {
+                    try {
+                        // Build HTML content
+                        resultContainer.innerHTML = `
+                            <div class="main-painting">
+                                <h1>${painting.title}</h1>
+                                <p>Artist: ${painting.artist}</p>
+                                <img src="${painting.imageUrl}" alt="${painting.title}">
+                                <p>${painting.reason}</p>
+                            </div>
+                            
+                            <h2>Compatible Paintings</h2>
+                            <div class="compatible-paintings">
+                                <div class="compatible-single">
+                                    <h3>${compatible[0].title}</h3>
+                                    <p>Artist: ${compatible[0].artist}</p>
+                                    <img src="${compatible[0].imageUrl}" alt="${compatible[0].title}">
+                                </div>
+                                <div class="compatible-single">
+                                    <h3>${compatible[1].title}</h3>
+                                    <p>Artist: ${compatible[1].artist}</p>
+                                    <img src="${compatible[1].imageUrl}" alt="${compatible[1].title}">
+                                </div>
+                            </div>
+                        `;
+                    } catch (error) {
+                        console.error('Error displaying painting info:', error);
+                        resultContainer.innerHTML = `<p>There was an error displaying the painting information.</p>`;
+                    }
+                };
+
+                displayPaintingInfo();
+            } else {
+                resultContainer.innerHTML = `<p>No results found for the given personality type.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

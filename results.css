@@ -34,7 +34,7 @@
     font-weight: 500;
     font-style: italic;
   }
-/* end font import */  
+/* end font import */ 
 
 body {
     /* text stuff */
@@ -46,64 +46,91 @@ body {
     background-color: #F5F3F5;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     padding-left: 5vh;
     padding-right: 5vh;
 }
 
+.main-painting {
+    text-align: center;
+    margin-top: 5%;
+
+}
+
+.main-painting img {
+    max-width: 60%;
+    border: goldenrod;
+    border-style: ridge;
+    border-width: 7px;
+}
+
+.compatible-paintings {
+    display: flex;
+    justify-content: space-between;
+    /* gap: 20px;
+    margin-top: 20px; */
+}
+
+.compatible-single {
+    flex: 1;
+    text-align: center;
+}
+
+.compatible-single img {
+    max-width: 60%;
+    height: auto;
+    display: flex;
+    margin: 0 auto;
+    border: goldenrod;
+    border-style: ridge;
+    border-width: 7px;
+}
+
 button {
-    font-family: "DM Mono", monospace;
-    background-color: #12130F;
-    border: none;
-    color: #F5F3F5;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 20px;
+  font-family: "DM Mono", monospace;
+  background-color: #12130F;
+  border: none;
+  color: #F5F3F5;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: small;
+  margin-top: 20px;
 }
 
 button:hover {
-    background-color: #5B9279;
+  background-color: #5B9279;
 }
 
 button.selected {
   background-color: #5B9279;
 }
 
-#next-btn {
-  background-color: #F5F3F5;
-  color: #5B9279;
-}
-
-#next-btn:hover {
-  background-color: #F5F3F5;
+#attr-btn {
+  background: none;
   color: #5B9279;
   text-decoration: underline;
+  font-size: xx-small
+}
+
+h1 {
+  font-size: medium;
+  padding-top: 10%;
+}
+
+h2 {
+  font-size: small;
+  padding-top: 10%;
+}
+
+h3 {
+  font-size: xx-small;
+}
+
+p {
+  font-size: x-small;
 }
 
 .button-container {
-  display: flex;
-  flex-direction: column;
+  padding-top: 20%;
 }
-
-/* results formatting */
-/* .painted-frame {
-  background-color: #5B9279;
-}
-
-.painted-frame img {
-  max-width: 100%;
-  height: 300px;
-  display: block;
-  margin: 0 auto;
-  border-color: goldenrod;
-  border-width: 15px;
-  border-style: ridge;
-}
-
-.result-page {
-  display: block;
-} */
