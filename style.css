@@ -98,4 +98,8 @@ button.selected {
 
 h1 {
   font-family: "Just Me Again Down Here", cursive;
+  a {
+    color: #12130F;
+    text-decoration: none;
+  }
 }
