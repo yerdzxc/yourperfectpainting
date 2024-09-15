@@ -2,7 +2,7 @@
 Welcome to the repo for Your Perfect Painting <3 This project takes users through a 12-question personality quiz, which assigns them a painting that reflects their personality. 
 
 ## Try it now!
-[https://korevillo.github.com/yourperfectpainting](https://korevillo.github.com/yourperfectpainting)
+[https://korevillo.github.io/yourperfectpainting](https://korevillo.github.io/yourperfectpainting)
 
 Please note that this site is optimized for mobile screens, meaning it might look weird on desktop!
 
